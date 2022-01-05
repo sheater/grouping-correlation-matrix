@@ -3,7 +3,6 @@ import { Font } from "three/examples/jsm/loaders/FontLoader";
 
 import { MultilevelCorrelationMatrix } from "./correlationMatrix";
 import {
-  DESC_ACTIVE_COLOR,
   DESC_LINE_COLOR_DARK,
   DESC_LINE_COLOR_LIGHT,
   LABELS_DIST,

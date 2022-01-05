@@ -1,8 +1,4 @@
-import {
-  pearsonCorrelation,
-  spearmanCorrelation,
-  kendallCorrelation,
-} from "./correlationMatrix";
+import { pearsonCorrelation, spearmanCorrelation } from "./correlationMatrix";
 import { ICorrelationTypeOption } from "./shared";
 
 export const NUMERICAL_COLUMNS = [
