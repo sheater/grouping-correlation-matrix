@@ -13,11 +13,15 @@ export default function App() {
   React.useEffect(() => {
     const loader = new FontLoader();
 
-    loader.load("/fonts/Raleway_Regular.json", function (item) {
+    const pathPrefix = window.location.hostname === "sheater.github.io"
+      ? "/grouping-correlation-matrix"
+      : "";
+
+    loader.load(`${pathPrefix}/fonts/Raleway_Regular.json`, function (item) {
       setFont(item);
     });
 
-    fetch("/data/germany_housing_data.csv")
+    fetch(`${pathPrefix}/data/germany_housing_data.csv`)
       .then((response) => response.text())
       .then((response) => {
         const { data } = Papa.parse<Array<string>>(response);
