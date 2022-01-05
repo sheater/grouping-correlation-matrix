@@ -6,3 +6,9 @@ export const getRGBStringFromCorrelationCoef = (coef: number) => {
 
   return `rgb(${r}%, 0%, ${b}%)`;
 };
+
+export const isCorrelationCoefInBounds = (value: number, bounds: [number, number]) => {
+    const absVal = Math.abs(value);
+
+    return absVal >= bounds[0] && absVal <= bounds[1];
+}

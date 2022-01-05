@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "rc-slider";
+import Slider, { Range } from "rc-slider";
 import Select from "react-select";
 
 import LevelSlider from "./LevelSlider";
@@ -25,6 +25,8 @@ const Controls: React.FunctionComponent<IProps> = ({
   actions,
   categoryOptions,
 }) => {
+  const maxLevelsOfInterest = Math.min(10, matrix.levelsCount);
+
   return (
     <React.Fragment>
       <div className="controls-pane controls-left-pane">
@@ -56,15 +58,18 @@ const Controls: React.FunctionComponent<IProps> = ({
 
         <br />
 
-        <div className="controls-label">Correlation visibility threshold</div>
-        <Slider
-          min={0.1}
-          max={0.9}
-          step={0.1}
-          value={controlState.correlationThreshold}
-          onChange={(correlationThreshold) =>
-            actions.changeControlState({ correlationThreshold })
-          }
+        <div className="controls-label">Correlation visibility boundaries</div>
+        <Range
+          min={0.0}
+          max={1.0}
+          step={0.05}
+          marks={{ 0.0: 0, 0.5: 0.5, 1.0: 1 }}
+          defaultValue={[0.5, 1.0]}
+          onChange={(value) => {
+            actions.changeControlState({
+              correlationBounds: value as [number, number],
+            });
+          }}
         />
 
         <br />
@@ -72,7 +77,8 @@ const Controls: React.FunctionComponent<IProps> = ({
         <div className="controls-label">Levels of interest</div>
         <Slider
           min={1}
-          max={Math.min(10, matrix.levelsCount)}
+          max={maxLevelsOfInterest}
+          marks={{ "1": 1, [maxLevelsOfInterest]: maxLevelsOfInterest }}
           value={controlState.visibleLevels}
           onChange={(visibleLevels) =>
             actions.changeControlState({ visibleLevels })

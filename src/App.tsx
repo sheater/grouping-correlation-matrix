@@ -6,6 +6,8 @@ import Papa from "papaparse";
 import { NUMERICAL_COLUMNS, CATEGORICAL_COLUMNS } from "./consts";
 import Visualisation from "./Visualisation";
 
+const PATH_PREFIX = "/grouping-correlation-matrix";
+
 export default function App() {
   const [data, setData] = React.useState<any>(null);
   const [font, setFont] = React.useState<Font | null>(null);
@@ -13,15 +15,11 @@ export default function App() {
   React.useEffect(() => {
     const loader = new FontLoader();
 
-    const pathPrefix = window.location.hostname === "sheater.github.io"
-      ? "/grouping-correlation-matrix"
-      : "";
-
-    loader.load(`${pathPrefix}/fonts/Raleway_Regular.json`, function (item) {
+    loader.load(`${PATH_PREFIX}/fonts/Raleway_Regular.json`, function (item) {
       setFont(item);
     });
 
-    fetch(`${pathPrefix}/data/germany_housing_data.csv`)
+    fetch(`${PATH_PREFIX}/data/germany_housing_data.csv`)
       .then((response) => response.text())
       .then((response) => {
         const { data } = Papa.parse<Array<string>>(response);

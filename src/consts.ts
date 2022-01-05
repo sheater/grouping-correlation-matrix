@@ -27,8 +27,8 @@ export const CATEGORICAL_COLUMNS = [
 ];
 
 export const CORRELATION_TYPE_OPTIONS: Array<ICorrelationTypeOption> = [
-  { value: "pearson", label: "Pearson Rho", func: pearsonCorrelation },
-  { value: "spearman", label: "Spearman Rho", func: spearmanCorrelation },
+  { value: "pearson", label: "Pearson", func: pearsonCorrelation },
+  { value: "spearman", label: "Spearman", func: spearmanCorrelation },
   //   { value: "kendall", label: "Kendall Tau", func: kendallCorrelation },
 ];
 

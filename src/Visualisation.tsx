@@ -53,12 +53,10 @@ const Visualisation: React.FunctionComponent<IProps> = ({ data, font }) => {
   const [controlState, setControlState] = React.useState<IVisControlState>({
     correlationType: CORRELATION_TYPE_OPTIONS[0],
     currentCategory: categoryOptions[0],
-    correlationThreshold: 0.5,
+    correlationBounds: [0.5, 1.0],
     currentLevel: 0,
     visibleLevels: 1,
   });
-
-  console.log("controlState", controlState);
 
   const matrix = React.useMemo(() => {
     return new MultilevelCorrelationMatrix(

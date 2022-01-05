@@ -4,7 +4,10 @@ import {
   CorrelationSubmatrix,
   MultilevelCorrelationMatrix,
 } from "./correlationMatrix";
-import { getRGBStringFromCorrelationCoef } from "./utils";
+import {
+  getRGBStringFromCorrelationCoef,
+  isCorrelationCoefInBounds,
+} from "./utils";
 import { INACTIVE_CELL_SIZE } from "./consts";
 
 interface ICorrelationMeshes {
@@ -14,7 +17,7 @@ interface ICorrelationMeshes {
 
 export function createCorrelationMesh(
   matrix: MultilevelCorrelationMatrix,
-  correlationThreshold: number
+  correlationBounds: [number, number]
 ): ICorrelationMeshes {
   const anchor = new THREE.Object3D();
   const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -27,7 +30,7 @@ export function createCorrelationMesh(
       row.forEach((cell: any, x: number) => {
         if (
           cell == null ||
-          (cell > -correlationThreshold && cell < correlationThreshold)
+          !isCorrelationCoefInBounds(cell, correlationBounds)
         ) {
           return null;
         }
@@ -41,12 +44,11 @@ export function createCorrelationMesh(
         const mesh = new THREE.Mesh(geometry, material);
 
         mesh.position.set(x + 0.5, z + 0.5, y + 0.5);
-        mesh.scale.set(INACTIVE_CELL_SIZE, INACTIVE_CELL_SIZE, INACTIVE_CELL_SIZE);
-
-        // // @ts-ignore
-        // mesh.on("click", (ev) => {
-        //   console.log("clickclickclick", ev);
-        // });
+        mesh.scale.set(
+          INACTIVE_CELL_SIZE,
+          INACTIVE_CELL_SIZE,
+          INACTIVE_CELL_SIZE
+        );
 
         levelGroup.add(mesh);
       });

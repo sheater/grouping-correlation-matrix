@@ -44,8 +44,8 @@ const MatrixPlot: React.FunctionComponent<IProps> = ({
   //   console.log("MatrixPlot.matrix", matrix);
 
   const { anchor, levelGroups } = React.useMemo(
-    () => createCorrelationMesh(matrix, controlState.correlationThreshold),
-    [matrix, controlState.correlationThreshold]
+    () => createCorrelationMesh(matrix, controlState.correlationBounds),
+    [matrix, controlState.correlationBounds]
   );
 
   const staticDescription = React.useMemo(

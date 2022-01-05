@@ -18,7 +18,7 @@ export type TData = Array<Record<string, string | number>>;
 export interface IVisControlState {
   correlationType: ICorrelationTypeOption;
   currentCategory: ICategoryOption;
-  correlationThreshold: number;
+  correlationBounds: [number, number];
   currentLevel: number;
   visibleLevels: number;
 }

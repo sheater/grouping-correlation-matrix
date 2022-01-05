@@ -2,7 +2,10 @@ import React from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import { getRGBStringFromCorrelationCoef } from "./utils";
+import {
+  getRGBStringFromCorrelationCoef,
+  isCorrelationCoefInBounds,
+} from "./utils";
 import { IVisActions, IVisControlState } from "./shared";
 import { MultilevelCorrelationMatrix } from "./correlationMatrix";
 
@@ -48,7 +51,7 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matrix]);
 
-  const { correlationThreshold } = controlState;
+  const { correlationBounds } = controlState;
 
   React.useEffect(() => {
     if (!canvasRef.current) {
@@ -79,11 +82,14 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
 
           currX++;
 
-          if (value == null || (value > -correlationThreshold && value < correlationThreshold)) {
+          if (
+            value == null ||
+            !isCorrelationCoefInBounds(value, correlationBounds)
+          ) {
             continue;
           }
 
-          context.globalAlpha = value ** 2;
+          context.globalAlpha = Math.abs(value);
           context.fillStyle = getRGBStringFromCorrelationCoef(value);
           context.fillRect(
             2 * currX,
@@ -95,7 +101,7 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
         }
       }
     });
-  }, [matrix, correlationThreshold]);
+  }, [matrix, correlationBounds]);
 
   return (
     <div style={{ height: "100%", display: "block", position: "relative" }}>
@@ -105,9 +111,15 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
         min={0}
         max={matrix.levelsCount}
         value={controlState.currentLevel}
-        onChange={(currentLevel) =>
-          actions.changeControlState({ currentLevel })
-        }
+        onChange={(currentLevel) => {
+          if (currentLevel === matrix.levelsCount) {
+            actions.changeControlState({
+              currentLevel: matrix.levelsCount - 1,
+            });
+          } else {
+            actions.changeControlState({ currentLevel });
+          }
+        }}
       />
 
       <canvas
@@ -116,8 +128,7 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
           position: "absolute",
           left: "40px",
           top: "0px",
-          width:
-            (matrix.numericalColsCount * (matrix.numericalColsCount - 1)),
+          width: matrix.numericalColsCount * (matrix.numericalColsCount - 1),
           height: "100%",
         }}
       />
