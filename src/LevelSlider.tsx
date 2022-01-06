@@ -77,7 +77,7 @@ const LevelSlider: React.FunctionComponent<IProps> = ({
           if (xi <= zi) {
             continue;
           }
-          //   const sub = matrix.submatrices[yi];
+
           const value = sub.values[xi][zi];
 
           currX++;

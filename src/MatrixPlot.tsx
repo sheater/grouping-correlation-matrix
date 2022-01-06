@@ -5,13 +5,11 @@ import { useThree } from "@react-three/fiber";
 import { Interaction } from "three.interaction/src/index";
 import * as THREE from "three";
 
-// import { MultilevelCorrelationMatrix } from "./correlationMatrix";
 import { createCorrelationMesh } from "./mesh";
 import {
   createDynamicCorrelationDescription,
   createStaticCorrelationDescription,
 } from "./description";
-// import { useVisState, visStateContext } from "./visState";
 import { DESC_ACTIVE_COLOR, DESC_LINE_COLOR_LIGHT, INACTIVE_CELL_SIZE } from "./consts";
 import { IVisControlState } from "./shared";
 import { MultilevelCorrelationMatrix } from "./correlationMatrix";
@@ -27,21 +25,11 @@ const MatrixPlot: React.FunctionComponent<IProps> = ({
   matrix,
   controlState,
 }) => {
-  //   const { matrix, controlState } = useVisState();
-  //   console.log("statestate", state);
-  //   const { matrix, controlState } = state;
   const { camera, scene, gl } = useThree();
-  //   const vs = React.useContext(visStateContext);
-
-  //   console.log("vs", vs);
 
   React.useEffect(() => {
     new Interaction(gl, scene, camera);
   }, [camera, scene, gl]);
-
-  //   console.log("MatrixPlot.controlState", useVisState());
-  //   console.log("MatrixPlot.controlState", controlState);
-  //   console.log("MatrixPlot.matrix", matrix);
 
   const { anchor, levelGroups } = React.useMemo(
     () => createCorrelationMesh(matrix, controlState.correlationBounds),
@@ -94,21 +82,13 @@ const MatrixPlot: React.FunctionComponent<IProps> = ({
           THREE.LineBasicMaterial
         >;
 
-        // mesh.material.color.set(
-        //   index >= level && index < level + visibleLevels
-        //     ? DESC_ACTIVE_COLOR
-        //     : DESC_LINE_COLOR_LIGHT
-        // );
-        // mesh.material.needsUpdate = true;
         mesh.material.color.set(
           index >= controlState.currentLevel &&
             index < controlState.currentLevel + controlState.visibleLevels
             ? DESC_ACTIVE_COLOR
             : DESC_LINE_COLOR_LIGHT
         );
-        // mesh.material.needsUpdate = true;
       });
-      //   levelGroup.visible = index >= level && index < level + visibleLevels;
     });
   }, [
     levelGroups,

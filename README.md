@@ -9,10 +9,10 @@ The _ground_ (gray plane) consists of two axes, as it is common for basic correl
 
 Each box in each group G represents the value of correlation, meaning the correlation coefficient of variable X and Y within that group G such that:
 
-- opaque box => high correlation
-- transparent box => low correlation
-- blue box => positive correlation
-- red box => negative correlation
+- opaque box -> high correlation
+- transparent box -> low correlation
+- blue box -> positive correlation
+- red box -> negative correlation
 
 
 ## 🚀 Live demo
@@ -65,7 +65,13 @@ I am a junior researcher at the Brno University of Technology, where my primary 
 
 Although real estate market is highly location specific and this visualisation is not spatial visualisation, the visualisation technique presented here will be definitelly utilized in the real estate market segmentation exploration, moreover, there is an expectation of some ad-hoc future improvements, maybe, even adding some spatial dimension representation.
 
+## 📟 Technologies used
+
+The whole visualisation is the web app (SPA), instantiated by `create-react-app`, written in TypeScript, using React for displaying controls and Three.js (`react-three-fiber`) to render geometry. We also employ some smaller libraries for sliders, spinners, ... (see `package.json`).
+
 ## 🧪 Local development/testing
+
+Ensure you have Node.js installed.
 
 To install dependencies:
 

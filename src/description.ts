@@ -38,23 +38,12 @@ export function createDynamicCorrelationDescription(
       side: THREE.DoubleSide,
     });
 
-    // geometry.rotateX(-Math.PI / 2);
     textGeometry.rotateY(Math.PI / 2);
     const text = new THREE.Mesh(textGeometry, matZLabels);
     text.position.y = z + 0.3;
     text.position.z = -LABELS_DIST;
-    // text.position.x = x + 0.7;
 
     levelGroup.add(text);
-
-    // textGeometry.computeBoundingBox();
-    // @ts-ignore
-    // text.cursor = "pointer";
-
-    // // @ts-ignore
-    // geometry.on("click", () => {
-    //   console.log("CLIOICKL");
-    // });
 
     const lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints);
     const line = new THREE.LineSegments(lineGeometry, material);
@@ -83,8 +72,6 @@ export function createStaticCorrelationDescription(
   matrix.numericalCols.forEach((columnName, x) => {
     const shapes = font.generateShapes(columnName, 0.5);
     const geometry = new THREE.ShapeGeometry(shapes);
-
-    // geometry.computeBoundingBox();
 
     geometry.rotateX(-Math.PI / 2);
     geometry.rotateY(Math.PI / 2);
