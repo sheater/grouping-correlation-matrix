@@ -19,6 +19,7 @@ code {
 .controls-pane {
   position: absolute;
   background-color: rgba(192, 189, 234, 0.3);
+  border-radius: 3px;
   padding: 2rem;
 }
 
